@@ -11,19 +11,20 @@ commands:
           reload§7 -- Reloads configuration for DnsLogin
           auth self [key] §7 -- Stores your account in the auth list. Key is generated when not provided.
           auth <username> [key]§7 -- Stores the current user in the auth list. Key is generated when not provided.
+          alt <original> <alt> §7 -- Sets the other users' key to original's key.
+          alt <alt> §7 -- Sets the other users' key to your key.
 permissions:
     dnslogin.*:
         description: Give access to most DnsLogin commands.
         children:
-            dnslogin.use: true
             dnslogin.command: true
             dnslogin.auth.other: true
         default: op
-    dnslogin.use:
-        description: Whether a player can use an DnsLogin table.
-        default: op
     dnslogin.command:
         description: Whether a player can use /dnslogin.
+        default: op
+    dnslogin.reload:
+        description: Whether a player can use reload DnsLogin config.
         default: op
     dnslogin.auth:
         description: Whether a player can add himself to authentication.
@@ -31,8 +32,17 @@ permissions:
         children:
             dnslogin.command: true
     dnslogin.auth.other:
-        description: Whether a player can use /dnslogin.
+        description: Whether a player can add someone else to authentication.
         default: op
         children:
             dnslogin.command: true
             dnslogin.auth: true
+    dnslogin.alt:
+        description: Whether a player can add an alt account.
+        default: op
+    dnslogin.alt.other:
+        description: Whether a player can add an alt account for someone else.
+        default: op
+        children:
+            dnslogin.command: true
+            dnslogin.alt: true
